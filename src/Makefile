@@ -1,4 +1,7 @@
-CFLAGS=-Wall -Wpedantic -std=c90
+CFLAGS=-Wall -Wpedantic -std=c90 -g
 
-main: main.c
-	${CC} $^ -o $@
+main: main.c trie.o
+	${CC} ${CFLAGS} $^ -o $@
+
+trie.o: trie.c
+	${CC} ${CFLAGS} -c $^ -o $@
