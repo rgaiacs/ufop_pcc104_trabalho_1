@@ -6,3 +6,5 @@ typedef struct TrieNode {
 
 void read_file(FILE *file, TrieTree *tree);
 int add_word(FILE *file, TrieTree *tree);  /* Recursive function */
+TrieTree* find_prefix(char *prefix, TrieTree *tree);
+void find_suggestions(char *prefix, TrieTree *tree);
