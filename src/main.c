@@ -7,9 +7,11 @@
 
 int main(int argc, char *argv[]) {
     FILE *file;
-    CompressedTrieTree *tree = calloc(1, sizeof(CompressedTrieTree));
+    CompressedTrieTree *tree = calloc(1, sizeof(CompressedTrieTree)); /* initializes the memory to zeros */
     int letter;
     char prefix[32];
+
+    tree->prefix[0] = '\0';
 
     if(argc <= 1) {
         printf("Usage:\n$ ./main.c filename.txt");
@@ -20,8 +22,24 @@ int main(int argc, char *argv[]) {
         file = fopen(argv[1], "r");
         do{
             letter = read_word_from_file(file, prefix);
-            if(letter >= 97 /* a */ && letter <= 122 /* z */){
+            if((int) prefix[0] >= 97 /* a */ && (int) prefix[0] <= 122 /* z */){
+                #ifdef LOG
+                printf(
+                    "%s:%d: Insering %s ...\n",
+                    __FILE__,
+                    __LINE__,
+                    prefix
+                );
+                #endif
                 insert_word_to_compressed_trie(prefix, tree);
+                #ifdef LOG
+                printf(
+                    "%s:%d: %s insered.\n",
+                    __FILE__,
+                    __LINE__,
+                    prefix
+                );
+                #endif
             }
         }while(letter != EOF);
         fclose(file);
@@ -32,10 +50,12 @@ int main(int argc, char *argv[]) {
         do{
             printf("Type the prefix or 0 to quit: ");
             scanf ("%32s", prefix);
-            if(prefix[0] != "0"){
+            if(strncmp(prefix, "0", 1)){
                 /* Do search */
+                printf("Suggestions for %s:\n", prefix);
+                find_suggestions(prefix, tree);
             }
-        }while(prefix[0] != "0");
+        }while(strncmp(prefix, "0", 1));
     }
  
     free_compressed_trie(tree);

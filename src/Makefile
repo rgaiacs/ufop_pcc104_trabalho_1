@@ -1,12 +1,14 @@
 .PHONY: test
 
-CFLAGS=-Wall -Wpedantic -std=c90 -g
+CFLAGS=-Wall -Wpedantic -std=c90
+DEBUG=-g
+LOG=-D LOG=1
 
 main: main.c trie.o
-	${CC} ${CFLAGS} $^ -o $@
+	${CC} ${CFLAGS} ${DEBUG} ${LOG} $^ -o $@
 
 trie.o: trie.c
-	${CC} ${CFLAGS} -c $^ -o $@
+	${CC} ${CFLAGS} ${DEBUG} ${LOG} -c $^ -o $@
 
 test: main
-	find test -type f -exec ./main {} \;
+	for t in $$(find test -type f -regex '.*txt$$' | sort); do ./main $$t < $${t}.input; done

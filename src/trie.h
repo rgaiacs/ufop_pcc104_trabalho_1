@@ -3,8 +3,10 @@ typedef struct CompressedTrieNode {
     int numer_of_appearance;
     char prefix[32];
     struct CompressedTrieNode *next[26];  /* 26 letters of the alphabet */
+    int number_of_children;
 } CompressedTrieTree;
 
 int read_word_from_file(FILE *file, char *prefix);
 void insert_word_to_compressed_trie(char *prefix, CompressedTrieTree *tree);
+void find_suggestions(char *prefix, CompressedTrieTree *tree);
 void free_compressed_trie(CompressedTrieTree *tree);
