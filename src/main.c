@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
             if((int) prefix[0] >= 97 /* a */ && (int) prefix[0] <= 122 /* z */){
                 #ifdef LOG
                 printf(
-                    "%s:%d: Insering %s ...\n",
+                    "%s:%d: Insering \"%s\" ...\n",
                     __FILE__,
                     __LINE__,
                     prefix
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
                 insert_word_to_compressed_trie(prefix, tree);
                 #ifdef LOG
                 printf(
-                    "%s:%d: %s insered.\n",
+                    "%s:%d: \"%s\" insered.\n",
                     __FILE__,
                     __LINE__,
                     prefix

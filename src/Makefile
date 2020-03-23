@@ -1,6 +1,6 @@
 .PHONY: test
 
-CFLAGS=-Wall -Wpedantic -std=c90
+#CFLAGS=-Wall -Wpedantic -std=c90
 DEBUG=-g
 LOG=-D LOG=1
 
